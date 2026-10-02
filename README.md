@@ -1,25 +1,18 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/zincsearch/zincsearch)](https://goreportcard.com/report/github.com/zincsearch/zincsearch)
-[![Docs](https://img.shields.io/badge/Docs-Docs-green)](https://zincsearch-docs.zinc.dev/) [![codecov](https://codecov.io/github/zincsearch/zincsearch/branch/main/graph/badge.svg)](https://codecov.io/github/zinclabs/zincsearch)
-
-❗Note: If your use case is of log search (app and security logs) instead of app search (implement search feature in your application or website) then you should check [openobserve/openobserve](https://github.com/openobserve/openobserve) project built in rust that is specifically built for log search use case.
-
 # ZincSearch
 
 ZincSearch is a search engine that does full text indexing. It is a lightweight alternative to Elasticsearch and runs using a fraction of the resources. It uses [bluge](https://github.com/blugelabs/bluge) as the underlying indexing library.
 
-It is very simple and easy to operate as opposed to Elasticsearch which requires a couple dozen knobs to understand and tune which you can get up and running in 2 minutes
+This repository is a public mirror of the ZincSearch project, kept here for reference and experimentation.
 
-It is a drop-in replacement for Elasticsearch if you are just ingesting data using APIs and searching using kibana (Kibana is not supported with ZincSearch. ZincSearch provides its own UI).
+It is very simple and easy to operate as opposed to Elasticsearch which requires a couple dozen knobs to understand and tune — you can get up and running in 2 minutes.
 
-Check the below video for a quick demo of ZincSearch.
-
-[![Zinc Youtube](./screenshots/zinc-youtube.jpg)](https://www.youtube.com/watch?v=aZXtuVjt1ow)
+It is a drop-in replacement for Elasticsearch if you are just ingesting data using APIs and searching using Kibana (Kibana is not supported with ZincSearch. ZincSearch provides its own UI).
 
 # Why ZincSearch
 
-While Elasticsearch is a very good product, it is complex and requires lots of resources and is more than a decade old. I built ZincSearch so it becomes easier for folks to use full text search indexing without doing a lot of work.
+While Elasticsearch is a very good product, it is complex and requires lots of resources and is more than a decade old. ZincSearch makes full text search indexing easier to use without a lot of work.
 
-# Features:
+# Features
 
 1. Provides full text indexing capability
 2. Single binary for installation and running. Binaries available under releases for multiple platforms.
@@ -28,7 +21,13 @@ While Elasticsearch is a very good product, it is complex and requires lots of r
 5. Out of the box authentication
 6. Schema less - No need to define schema upfront and different documents in the same index can have different fields.
 7. Index storage in disk
-8. aggregation support
+8. Aggregation support
+
+# Tech stack
+
+- **Go** — backend, single binary
+- **Vue** — bundled web UI (`web/`)
+- **Bluge** — underlying indexing library
 
 # Documentation
 
@@ -46,9 +45,31 @@ Documentation is available at [https://zincsearch-docs.zinc.dev/](https://zincse
 
 # Getting started
 
-## Quickstart
+## Quick start
 
-Check [Quickstart](https://zincsearch-docs.zinc.dev/quickstart/)
+```bash
+# Build
+./build.sh
+
+# Or run directly with Go
+go run ./cmd/zincsearch
+```
+
+Then open `http://localhost:4080`. Default credentials: `admin` / `Complexpass#123`. Full guide: [Quickstart](https://zincsearch-docs.zinc.dev/quickstart/)
+
+## Project structure
+
+- `cmd/` — main entry points
+- `pkg/` — core server, indexing, API handlers
+- `web/` — bundled Vue web UI
+- `docs/` — documentation
+- `examples/` — API usage examples
+- `test/` — tests
+- `helm/`, `k8s/` — deployment manifests
+
+## Deploy notes
+
+ZincSearch is a Go server app, not a static site — it needs a Go build or Docker (`Dockerfile` included) plus disk storage, so there is no hosted demo here.
 
 # Releases
 
@@ -65,7 +86,7 @@ ZincSearch has hundreds of production installations.
 | High availability    | Not available                                                    | Yes                                                                                       |
 | Open source          | Yes                                                              | Yes, [OpenObserve](https://github.com/openobserve/openobserve)                            |
 | ES API compatibility | Yes                                                              | Yes                                                                                       |
-| GUI                  | Basic                                                            | Very Advanced, including dashboards                                                       |
+| GUI                  | Basic                                                            | Very Advanced, including dashboards                                                     |
 | Cost                 | Open source                                                      | Open source                                                                               |
 | Get started          | [Open source docs](https://zincsearch-docs.zinc.dev/quickstart/) | [Open source docs](https://openobserve.ai/docs) or [Cloud](https://cloud.openobserve.ai) |
 
@@ -73,7 +94,7 @@ ZincSearch has hundreds of production installations.
 
 - How to develop and contribute to ZincSearch
 
-  Check the [contributing guide](./CONTRIBUTING.md) . Also check the [roadmap items](https://github.com/orgs/zinclabs/projects/3)
+  Check the [contributing guide](./CONTRIBUTING.md).
 
 # Examples
 
@@ -86,3 +107,7 @@ You can use ZincSearch to index and search any data. Here are some examples that
 1. https://github.com/avaco2312/zincsearch
 1. https://github.com/paolorossig/email-indexer
 1. https://github.com/ulimonte05/zincsearching
+
+---
+
+**Built by Girish Lade** — [ladestack.in](https://ladestack.in)
